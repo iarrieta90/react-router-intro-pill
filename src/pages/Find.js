@@ -5,18 +5,13 @@ import Header from "../components/Header";
 import BeerCard from "../components/BeerCard";
 import useBeersFinder from "../hooks/useBeersFinder";
 
-function Find({ authState, login, logout }) {
+function Find() {
   const { search } = useLocation();
-
   const { beers, error, loading } = useBeersFinder(search);
 
   return (
     <div>
-      <Header
-        isAuthenticated={authState.isAuthenticated}
-        login={login}
-        logout={logout}
-      />
+      <Header />
       <main className="container mt-4">
         <section className="row mb-2">
           <div className="col">

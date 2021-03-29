@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Header from "../components/Header";
 import BeerCard from "../components/BeerCard";
+import BeersContext from "../contexts/BeersContext";
 
-function Home({ beers, error, loading, nextPage, authState, login, logout }) {
+function Home() {
+  
+  const { beers, error, loading, nextPage } = useContext(BeersContext);
+
   return (
     <div>
-      <Header
-        isAuthenticated={authState.isAuthenticated}
-        login={login}
-        logout={logout}
-      />
+      <Header />
       <main className="container mt-4">
         <section className="row mb-2">
           <div className="col">

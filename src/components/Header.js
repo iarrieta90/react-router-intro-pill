@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 
-function Header({ isAuthenticated, login, logout }) {
+import AuthContext from "../contexts/AuthContext";
+
+function Header() {
+  const { authState: { isAuthenticated } = {}, login, logout } = useContext(
+    AuthContext
+  );
+
   return (
     <header className="bg-light p-2">
       <nav className="container d-flex align-items-center">

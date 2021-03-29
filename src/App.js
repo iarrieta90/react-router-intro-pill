@@ -7,61 +7,48 @@ import Find from "./pages/Find";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
-import useBeersData from "./hooks/useBeersData";
-import useAuth from "./hooks/useAuth";
+import BeersContextProvider from "./components/BeersContextProvider";
+import AuthContextProvider from "./components/AuthContextProvider";
 
 function App() {
-  const { beers, error, loading, nextPage } = useBeersData();
-  const { authState, login, logout } = useAuth();
 
   return (
-    <Switch>
-      <Route
-        path="/beers/find"
-        render={({ match, location, history }) => (
-          <Find
-            match={match}
-            location={location}
-            history={history}
-            authState={authState}
-            login={login}
-            logout={logout}
+    <BeersContextProvider>
+      <AuthContextProvider>
+        <Switch>
+          <Route
+            path="/beers/find"
+            render={({ match, location, history }) => (
+              <Find
+                match={match}
+                location={location}
+                history={history}
+              />
+            )}
           />
-        )}
-      />
-      <ProtectedRoute
-        isAuthenticated={authState.isAuthenticated}
-        path="/beers/:beerId"
-        render={({ match, location, history }) => (
-          <BeerInfo
-            beers={beers}
-            match={match}
-            location={location}
-            history={history}
-            authState={authState}
-            login={login}
-            logout={logout}
+          <ProtectedRoute
+            path="/beers/:beerId"
+            render={({ match, location, history }) => (
+              <BeerInfo
+                match={match}
+                location={location}
+                history={history}
+              />
+            )}
           />
-        )}
-      />
-      <Route
-        path="/"
-        render={({ match, location, history }) => (
-          <Home
-            beers={beers}
-            error={error}
-            loading={loading}
-            nextPage={nextPage}
-            match={match}
-            location={location}
-            history={history}
-            authState={authState}
-            login={login}
-            logout={logout}
+          <Route
+            path="/"
+            render={({ match, location, history }) => (
+              <Home
+                match={match}
+                location={location}
+                history={history}
+              />
+            )}
           />
-        )}
-      />
-    </Switch>
+        </Switch>
+      </AuthContextProvider>
+    </BeersContextProvider>
   );
 }
 
